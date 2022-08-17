@@ -125,9 +125,9 @@ def point_to_lat(lat_center, lon_center, zoom, width, height, wanted_points):
 
 def make_query(points, stop_type):
     if stop_type == "pokestop":
-        search_columns_ = ""
+        search_columns_ = ", incident_grunt_type as 'gruntTypeId', active_fort_modifier as 'lureTypeId'"
     elif stop_type == "gym":
-        search_columns_ = ", team_id as 'teamId'"
+        search_columns_ = ", team_id as 'teamId', slots_available as 'slotsAvailable'"
     return (
         f"SELECT latitude, longitude, '{stop_type}' as 'type'{search_columns_}"
         f"FROM {stop_type} "
@@ -216,4 +216,4 @@ def straight_map(map_kind):
     return gen_staticmap(request, map_kind)
 
 
-app.run(port=config["port"])
+app.run(host=config["host"], port=config["port"])
