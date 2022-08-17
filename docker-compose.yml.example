@@ -1,0 +1,19 @@
+version: '2.4'
+services:
+  middleman:
+    container_name: middleman
+    build:
+     context: ./tileserver-middleman
+    command: python3 middleman.py
+    restart: always
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      - ./tileserver-middleman/config.json:/usr/src/app/config.json
+      - ./TileServer/Templates:/usr/src/app/Templates
+    depends_on:
+      - tileserver
+    networks:
+      - default
+    ports:
+      - "3031:3031"
