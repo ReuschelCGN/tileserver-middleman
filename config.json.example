@@ -4,7 +4,6 @@
     "db_name": "scannerdb",
     "db_user": "",
     "db_pass": "",
-    "scanner": "mad oder rdm",
 
     "host": "0.0.0.0",
     "port": 3031,
