@@ -25,18 +25,18 @@ To set this up, make sure that your marker list looks something like this:
 
    /////////////////////////////////
 
-   #if(middlejson != nil):
-   #for(wp in middlejson):
-   {
-      "url": "https://raw.githubusercontent.com/ccev/stopwatcher-icons/master/tileserver-2/#index(wp, 2).png",
-      "latitude": #index(wp, 0),
-      "longitude": #index(wp, 1),
-      "width": 20,
-      "height": 20,
-      "y_offset": -10
-   },
-   #endfor
-   #endif
+        #if(middlejson != nil):
+         #for(wp in middlejson):
+          {
+              "url": "https://raw.githubusercontent.com/ReuschelCGN/pogoicons/main/ShuffelIcons/#if(wp.type == "pokestop"):#if(wp.lureTypeId == nil):0#else:#(wp.lureTypeId)#endif#if(wp.gruntTypeId > 0):_i#endif#else:#(wp.teamId)#if(wp.slotsAvailable != 0):_t#(wp.slotsAvailable)#endif#endif.png",
+              "latitude": #(wp.latitude),
+              "longitude": #(wp.longitude),
+              "width": 20,
+              "height": 20,
+              "y_offset": -5
+          },
+         #endfor
+        #endif
    
    /////////////////////////////////
    
