@@ -124,18 +124,32 @@ def point_to_lat(lat_center, lon_center, zoom, width, height, wanted_points):
 
 
 def make_query(points, stop_type):
-    if stop_type == "pokestop":
-        search_columns_ = ", incident_grunt_type as 'gruntTypeId', active_fort_modifier as 'lureTypeId'"
-    elif stop_type == "gym":
-        search_columns_ = ", team_id as 'teamId', slots_available as 'slotsAvailable'"
-    return (
-        f"SELECT latitude, longitude, '{stop_type}' as 'type'{search_columns_}"
-        f"FROM {stop_type} "
-        f"WHERE latitude >= {points[0]} "
-        f"AND latitude <= {points[1]} "
-        f"AND longitude >= {points[2]} "
-        f"AND longitude <= {points[3]}"
-    )
+    if config["scanner"] == "mad":
+        if stop_type == "pokestop":
+            search_columns_ = ", incident_grunt_type as 'gruntTypeId', active_fort_modifier as 'lureTypeId'"
+        elif stop_type == "gym":
+            search_columns_ = ", team_id as 'teamId', slots_available as 'slotsAvailable'"
+        return (
+            f"SELECT latitude, longitude, '{stop_type}' as 'type'{search_columns_}"
+            f"FROM {stop_type} "
+            f"WHERE latitude >= {points[0]} "
+            f"AND latitude <= {points[1]} "
+            f"AND longitude >= {points[2]} "
+            f"AND longitude <= {points[3]}"
+        )
+    elif config["scanner"] == "rdm":
+        if stop_type == "pokestop":
+            search_columns_ = ""
+        elif stop_type == "gym":
+            search_columns_ = ", team_id as 'teamId', available_slots as 'slotsAvailable'"
+        return (
+            f"SELECT lat as latitude, lon as longitude, '{stop_type}' as 'type'{search_columns_}"
+            f"FROM {stop_type} "
+            f"WHERE lat >= {points[0]} "
+            f"AND lat <= {points[1]} "
+            f"AND lon >= {points[2]} "
+            f"AND lon <= {points[3]}"
+        )
 
 
 def query_stops(lats, lons):
