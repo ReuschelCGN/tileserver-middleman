@@ -107,8 +107,8 @@ def point_to_lat(lat_center, lon_center, zoom, width, height, wanted_points):
     # copied from https://help.openstreetmap.org/questions/75611/transform-xy-pixel-values-into-lat-and-long
     C = (256 / (2*math.pi)) * 2**zoom
 
-    xcenter = C * (math.radians(lon_center) + math.pi)
-    ycenter = C * (math.pi - math.log(math.tan((math.pi/4) + math.radians(lat_center) / 2)))
+    xcenter = C * (math.radians(int(float(lon_center))) + math.pi)
+    ycenter = C * (math.pi - math.log(math.tan((math.pi/4) + math.radians(int(float(lat_center))) / 2)))
 
     xpoint = xcenter - (width / 2 - wanted_points[0])
     ypoint = ycenter - (height / 2 - wanted_points[1])
